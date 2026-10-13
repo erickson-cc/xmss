@@ -1,0 +1,2 @@
+echo "gcc xmss.c -Wall -I/home/Erickson/liboqs/include -L/home/Erickson/liboqs/lib -loqs -o sig"
+gcc xmss.c -Wall -I/home/Erickson/liboqs/include -L/home/Erickson/liboqs/lib -loqs -o sig

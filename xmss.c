@@ -1,0 +1,8 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <oqs/oqs.h>
+
+int main(){
+	return 0;
+}
