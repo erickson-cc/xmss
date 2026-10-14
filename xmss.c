@@ -55,7 +55,7 @@ int main(){
 	
 
 	uint8_t *signature = malloc(sig->length_signature);
-	size_t signature_len;
+	size_t sig_len;
 
 	// Geração de Chaves
 	printf("Gerando chaves...\n");
@@ -68,7 +68,7 @@ int main(){
 	// Assinatura
 	printf("Assinando a mensagem...\n");
 
-	if (OQS_SIG_STFL_sign(sig, signature, &signature_len, message, message_len, secret_key) != OQS_SUCCESS) {
+	if (OQS_SIG_STFL_sign(sig, signature, &sig_len, message, message_len, secret_key) != OQS_SUCCESS) {
 		printf("Erro na assinatura da mensagem\n");
 		OQS_MEM_secure_free(message, message_len);
 		return 1;
@@ -79,17 +79,17 @@ int main(){
 		printf("Erro ao criar o arquivo 'assinatura'.\n");
 		return 1;
 	}
-	fwrite(signature, 1, signature_len, file_sig);
+	fwrite(signature, 1, sig_len, file_sig);
 	fclose(file_sig);
 
-	printf("Assinatura gerada com sucesso! Tamanho: %zu bytes\n", signature_len);
+	printf("Assinatura gerada com sucesso! Tamanho: %zu bytes\n", sig_len);
 
 	// Verificação da assinatura
 	char input;
 	printf("Aperte enter para iniciar a verificação da assinatura.\n");
 	scanf("%c", &input);
 
-	if (OQS_SIG_STFL_verify(sig, message, message_len, signature, signature_len, public_key) == OQS_SUCCESS){
+	if (OQS_SIG_STFL_verify(sig, message, message_len, signature, sig_len, public_key) == OQS_SUCCESS){
 		printf("A assinatura é válida\n");
 	}
 	else {

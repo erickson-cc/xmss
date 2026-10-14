@@ -38,9 +38,28 @@ int main(){
 		fclose(f_pub);
 	}
 
+	// Serialização
+	uint8_t *sk_buf = NULL;
+	size_t sk_buf_len = 0;
+
+	if (OQS_SIG_STFL_SECRET_KEY_serialize(&sk_buf, &sk_buf_len, secret_key) == OQS_SUCCESS) {
+		FILE *f_sk = fopen("chave_secreta.sk", "wb");
+		if (f_sk) {
+			fwrite(sk_buf, 1, sk_buf_len, f_sk);
+			fclose(f_sk);
+		}
+		OQS_MEM_insecure_free(sk_buf);
+		printf("Chave serializada em 'chave_secreta.sk'\n");
+	}
+	else{
+		printf("Erro ao serializar a chave secreta\n");
+		return 1;
+	}
+
 	free(public_key);
 	OQS_SIG_STFL_SECRET_KEY_free(secret_key);
 	OQS_SIG_STFL_free(sig);
 
+	printf("Sucesso ao gerar as chaves\n");
 	return 0;
 }

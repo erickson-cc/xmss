@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <oqs/oqs.h>
 
+// Callback que grava no disco
 static OQS_STATUS save_sk_cb(uint8_t *key_buf, size_t buf_len, void *context){
 	FILE *f = fopen((char *)context, "wb");
 	if (f) {
@@ -15,6 +16,7 @@ static OQS_STATUS save_sk_cb(uint8_t *key_buf, size_t buf_len, void *context){
 int main(int argc, char *argv[]){
 	const char *msg_file = (argc>=2) ? argv[1] : "mensagem";
 	const char *sigalg = "XMSS-SHA2_10_256";
+	const char *sk_file = "chave_secreta.sk";
 	
 	OQS_SIG_STFL *sig = OQS_SIG_STFL_new(sigalg);
 	if(sig==NULL) return 1;
@@ -42,9 +44,16 @@ int main(int argc, char *argv[]){
 
 	// Injeção de estado
 	OQS_SIG_STFL_SECRET_KEY *secret_key = OQS_SIG_STFL_SECRET_KEY_new(sigalg);
+
+	// Desserializa
+	if (OQS_SIG_STFL_SECRET_KEY_deserialize(secret_key, sk_buf, sk_len, (void *)sk_file) != OQS_SUCCESS) {
+		printf("Erro ao desserializar\n");
+		return 1;
+	}
 	
 	// Registra Callback
-	OQS_SIG_STFL_SECRET_KEY_SET_store_cb(secret_key, save_sk_cb, "chave_secreta.sk");
+		// sk_file = chave_secreta.sk
+	OQS_SIG_STFL_SECRET_KEY_SET_store_cb(secret_key, save_sk_cb, (void *)sk_file);
 
 	// Geração da assinatura
 	uint8_t *signature = malloc(sig->length_signature);

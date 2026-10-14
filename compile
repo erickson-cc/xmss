@@ -1,4 +1,4 @@
 gcc xmss.c -Wall -I/home/Erickson/liboqs/include -L/home/Erickson/liboqs/lib -loqs -o sig
-gcc gen_keys.c -Wall -I/home/Erickson/liboqs/include -L/home/Erickson/liboqs/lib -loqs -o sig
-gcc gen_sign.c -Wall -I/home/Erickson/liboqs/include -L/home/Erickson/liboqs/lib -loqs -o sig
-gcc verify_sign.c -Wall -I/home/Erickson/liboqs/include -L/home/Erickson/liboqs/lib -loqs -o sig
+gcc gen_keys.c -Wall -I/home/Erickson/liboqs/include -L/home/Erickson/liboqs/lib -loqs -o gen_keys
+gcc gen_sign.c -Wall -I/home/Erickson/liboqs/include -L/home/Erickson/liboqs/lib -loqs -o gen_sign
+gcc verify_sign.c -Wall -I/home/Erickson/liboqs/include -L/home/Erickson/liboqs/lib -loqs -o verify_sign
