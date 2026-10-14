@@ -1,0 +1,16 @@
+# Instalação liboqs
+
+
+Pretendo instalar a biblioteca do liboqs dentro do meu usuario, no caminho /home/Erickson/liboqs
+O README do liboqs-python informa os seguintes comandos:
+'''
+git clone --depth=1 https://github.com/open-quantum-safe/liboqs
+cmake -S liboqs -B liboqs/build -DBUILD_SHARED_LIBS=ON -DOQS_HAZARDOUS_EXPERIMENTAL_ENABLE_SIG_STFL_KEY_SIG_GEN=ON -DOQS_ENABLE_SIG_STFL_LMS=ON -DOQS_ENABLE_SIG_STFL_XMSS=ON -DCMAKE_INSTALL_PREFIX=/home/Erickson/liboqs
+cmake --build liboqs/build --parallel 6
+cmake --build liboqs/build --target install
+
+Apontar a variável de ambiente para a biblioteca.
+'''
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/Erickson/liboqs/lib
+
+
